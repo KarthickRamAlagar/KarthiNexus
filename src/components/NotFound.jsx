@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import Logo from "/KR.png";
+import KR from "/KR.png";
 
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-black overflow-y-scroll flex items-center justify-center px-4">
       <div className="work-container">
         <div className="work-canvas flex flex-col items-center justify-center text-center p-8">
-          <img src={Logo} alt="Logo" className="w-24 h-24 animate-pulse" />
+          <img src={KR} alt="Logo" className="w-24 h-24 animate-pulse" />
           <h1 className="text-white text-3xl font-bold mb-4">
             Oops! Page Not Found
           </h1>
