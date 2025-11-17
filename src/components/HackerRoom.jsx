@@ -1,17 +1,107 @@
-import { useGLTF, useTexture } from "@react-three/drei";
-import { useEffect, useMemo } from "react";
+// // import { useGLTF, useTexture } from "@react-three/drei";
+// // import { useEffect, useMemo } from "react";
 
-// ✅ Preload GLTF model
+// // // ✅ Preload GLTF model
+// // useGLTF.preload("/models/hacker-room.glb");
+
+// // const HackerRoom = (props) => {
+// //   const { nodes, materials } = useGLTF("/models/hacker-room.glb");
+
+// //   // ✅ Load textures
+// //   const monitortxt = useTexture("textures/desk/monitor.png");
+// //   const screenTxtRaw = useTexture("textures/desk/KarthiScreen.png");
+
+// //   // ✅ Safely manipulate texture offset using useMemo (no state update)
+// //   const screenTxt = useMemo(() => {
+// //     if (!screenTxtRaw) return null;
+// //     screenTxtRaw.offset.x = 0.2;
+// //     return screenTxtRaw;
+// //   }, [screenTxtRaw]);
+
+// //   return (
+// //     <group {...props} dispose={null}>
+// //       <mesh
+// //         geometry={nodes.screen_screens_0.geometry}
+// //         material={materials.screens}
+// //       >
+// //         {<meshMatcapMaterial map={screenTxt} />}
+// //       </mesh>
+// //       <mesh
+// //         geometry={nodes.screen_glass_glass_0.geometry}
+// //         material={materials.glass}
+// //       />
+// //       <mesh
+// //         geometry={nodes.table_table_mat_0_1.geometry}
+// //         material={materials.table_mat}
+// //       />
+// //       <mesh
+// //         geometry={nodes.table_table_mat_0_2.geometry}
+// //         material={materials.computer_mat}
+// //       >
+// //         {monitortxt && <meshMatcapMaterial map={monitortxt} />}
+// //       </mesh>
+// //       <mesh
+// //         geometry={nodes.table_table_mat_0_3.geometry}
+// //         material={materials.server_mat}
+// //       />
+// //       <mesh
+// //         geometry={nodes.table_table_mat_0_4.geometry}
+// //         material={materials.vhsPlayer_mat}
+// //       />
+// //       <mesh
+// //         geometry={nodes.table_table_mat_0_5.geometry}
+// //         material={materials.stand_mat}
+// //       />
+// //       <mesh
+// //         geometry={nodes.table_table_mat_0_6.geometry}
+// //         material={materials.mat_mat}
+// //       />
+// //       <mesh
+// //         geometry={nodes.table_table_mat_0_7.geometry}
+// //         material={materials.arm_mat}
+// //       />
+// //       <mesh
+// //         geometry={nodes.table_table_mat_0_8.geometry}
+// //         material={materials.tv_mat}
+// //       >
+// //         {monitortxt && <meshMatcapMaterial map={monitortxt} />}
+// //       </mesh>
+// //       <mesh
+// //         geometry={nodes.table_table_mat_0_9.geometry}
+// //         material={materials.cables_mat}
+// //       />
+// //       <mesh
+// //         geometry={nodes.table_table_mat_0_10.geometry}
+// //         material={materials.props_mat}
+// //       />
+// //       <mesh
+// //         geometry={nodes.table_table_mat_0_11.geometry}
+// //         material={materials.ground_mat}
+// //       />
+// //       <mesh
+// //         geometry={nodes.table_table_mat_0_12.geometry}
+// //         material={materials.key_mat}
+// //       />
+// //     </group>
+// //   );
+// // };
+
+// // export default HackerRoom;
+
+import { useGLTF, useTexture } from "@react-three/drei";
+import { useMemo } from "react";
+
+// Preload Model
 useGLTF.preload("/models/hacker-room.glb");
 
 const HackerRoom = (props) => {
   const { nodes, materials } = useGLTF("/models/hacker-room.glb");
 
-  // ✅ Load textures
-  const monitortxt = useTexture("textures/desk/monitor.png");
+  // Load Textures
+  const monitorTxt = useTexture("textures/desk/monitor.png");
   const screenTxtRaw = useTexture("textures/desk/KarthiScreen.png");
 
-  // ✅ Safely manipulate texture offset using useMemo (no state update)
+  // Adjust screen offset without causing re-render loops
   const screenTxt = useMemo(() => {
     if (!screenTxtRaw) return null;
     screenTxtRaw.offset.x = 0.2;
@@ -20,26 +110,35 @@ const HackerRoom = (props) => {
 
   return (
     <group {...props} dispose={null}>
+      {/* -------- MAIN PC SCREEN ---------- */}
       <mesh
         geometry={nodes.screen_screens_0.geometry}
         material={materials.screens}
       >
         {screenTxt && <meshMatcapMaterial map={screenTxt} />}
       </mesh>
+
+      {/* Glass */}
       <mesh
         geometry={nodes.screen_glass_glass_0.geometry}
         material={materials.glass}
       />
+
+      {/* -------- TABLE PARTS ---------- */}
       <mesh
         geometry={nodes.table_table_mat_0_1.geometry}
         material={materials.table_mat}
       />
+
+      {/* ---------- MONITOR (SMALL SCREEN) ---------- */}
       <mesh
         geometry={nodes.table_table_mat_0_2.geometry}
         material={materials.computer_mat}
       >
-        {monitortxt && <meshMatcapMaterial map={monitortxt} />}
+        {monitorTxt && <meshMatcapMaterial map={monitorTxt} />}
       </mesh>
+
+      {/* -------- SERVER, VHS, STAND, MAT ETC ---------- */}
       <mesh
         geometry={nodes.table_table_mat_0_3.geometry}
         material={materials.server_mat}
@@ -60,12 +159,16 @@ const HackerRoom = (props) => {
         geometry={nodes.table_table_mat_0_7.geometry}
         material={materials.arm_mat}
       />
+
+      {/* ----------- TV SCREEN (BIG SCREEN) ------------ */}
       <mesh
         geometry={nodes.table_table_mat_0_8.geometry}
         material={materials.tv_mat}
       >
-        {monitortxt && <meshMatcapMaterial map={monitortxt} />}
+        {monitorTxt && <meshMatcapMaterial map={monitorTxt} />}
       </mesh>
+
+      {/* -------- CABLES, PROPS, GROUND, KEYBOARD -------- */}
       <mesh
         geometry={nodes.table_table_mat_0_9.geometry}
         material={materials.cables_mat}

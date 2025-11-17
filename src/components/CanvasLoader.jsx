@@ -8,6 +8,7 @@ const CanvasLoader = () => {
       center
       style={{
         background: "rgba(0,0,0,0.7)",
+
         padding: "20px",
         borderRadius: "10px",
         color: "#fff",

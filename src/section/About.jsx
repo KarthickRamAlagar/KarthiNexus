@@ -6,19 +6,21 @@ import useAlert from "../hooks/useAlert.js";
 
 const About = () => {
   const [hasCopied, setHasCopied] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const audioRef = useRef(null);
+  const globeRef = useRef();
+
   const handleCopy = () => {
     navigator.clipboard.writeText("karthickramalagar@gmail.com");
     setHasCopied(true);
-    setTimeout(() => {
-      setHasCopied(false);
-    }, [2000]);
+    setTimeout(() => setHasCopied(false), 2000);
   };
 
   const { alert, showAlert, hideAlert } = useAlert();
-  const globeRef = useRef();
 
   useEffect(() => {
     if (globeRef.current) {
+      // Set initial camera POV
       globeRef.current.pointOfView(
         {
           lat: 9.9252,
@@ -27,13 +29,58 @@ const About = () => {
         },
         1000
       );
+
+      // Enable auto-rotation
+      const controls = globeRef.current.controls();
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.8;
     }
   }, []);
+
+  // Play audio exactly 3 times, support pause & resume from same timestamp
+  useEffect(() => {
+    audioRef.current = new Audio("/audio/audio2.mp4");
+    audioRef.current.volume = 0.1;
+
+    let playCount = 0;
+
+    const handleEnded = () => {
+      playCount++;
+      if (playCount < 3) {
+        audioRef.current.play(); // play again
+      }
+    };
+
+    audioRef.current.addEventListener("ended", handleEnded);
+
+    // Start playing
+    audioRef.current.play().catch(() => {});
+
+    return () => {
+      audioRef.current.removeEventListener("ended", handleEnded);
+      audioRef.current.pause();
+      audioRef.current = null;
+    };
+  }, []);
+
+  const toggleMute = () => {
+    setIsMuted((prev) => !prev);
+
+    if (!audioRef.current) return;
+
+    if (isMuted) {
+      audioRef.current.play(); // resume
+    } else {
+      audioRef.current.pause(); // pause but keep position
+    }
+  };
 
   return (
     <section className="c-space my-20" id="about">
       {alert.show && <Alert {...alert} />}
+
       <div className="grid xl:grid-cols-3 xl:grid-rows-6 md:grid-cols-2 grid-col-1 gap-5 h-full">
+        {/* GRID 1 */}
         <div className="col-span-1 xl:row-span-3">
           <div className="grid-container">
             <img
@@ -42,15 +89,17 @@ const About = () => {
               className="w-full sm:h-[276px] h-fit object-contain"
             />
             <div>
-              <p className="grid-headtext">Hi,I'm Karthikeyan</p>
+              <p className="grid-headtext">Hi, I'm Karthikeyan</p>
               <p className="grid-subtext">
-                With 4 years of Bachelors in Electrical and Elctronics
-                Engineering with 8.9 CGPA, I have honed my skills in Frontend
-                development & focus on animated 3D WebApps.
+                With 4 years of Bachelors in Electrical and Electronics
+                Engineering (8.9 CGPA), I have honed my skills in frontend
+                development with a focus on animated 3D WebApps.
               </p>
             </div>
           </div>
         </div>
+
+        {/* GRID 2 */}
         <div className="col-span-1 xl:row-span-3">
           <div className="grid-container">
             <img
@@ -59,16 +108,26 @@ const About = () => {
               className="w-full sm:w-[276px] h-fit object-contain mx-auto"
             />
             <div>
-              <p className="grid-headtext"> Tech Stack</p>
+              <p className="grid-headtext">Tech Stack</p>
               <p className="grid-subtext">
-                I specialize in Javascript/TypeScript with a focus on React
-                EcoSystem with Backend-as-a-Service.
+                I specialize in JavaScript/TypeScript with deep expertise in the
+                React ecosystem and Backend-as-a-Service.
               </p>
             </div>
           </div>
         </div>
-        <div className="col-span-1 xl:row-span-4">
-          <div className="grid-container">
+
+        {/* GRID 3 — Globe */}
+        <div className="col-span-1 xl:row-span-4 relative">
+          <div className="grid-container relative">
+            {/* Sound Toggle Button */}
+            <button
+              onClick={toggleMute}
+              className="absolute top-4 right-4 z-50 bg-black/50 p-2 rounded-full hover:bg-black/70 transition text-white text-sm"
+            >
+              {isMuted ? "🔇" : "🔊"}
+            </button>
+
             <div className="rounded-3xl w-full sm:h-[326px] h-fit flex justify-center items-center">
               <Globe
                 ref={globeRef}
@@ -103,12 +162,13 @@ const About = () => {
                 }}
               />
             </div>
+
             <div>
               <p className="grid-headtext">
-                I work remotely across most timezones.
+                I work remotely across most time zones.
               </p>
               <p className="grid-subtext">
-                I'm based in India , with remote work available.
+                I'm based in India, with remote work availability.
               </p>
               <a href="#contact" className="w-full mt-10 block">
                 <Button name="Contact Me" isBeam containerClass="w-full" />
@@ -116,6 +176,8 @@ const About = () => {
             </div>
           </div>
         </div>
+
+        {/* GRID 4 */}
         <div className="xl:col-span-2 xl:row-span-3">
           <div className="grid-container">
             <img
@@ -124,14 +186,17 @@ const About = () => {
               className="w-full sm:h-[266px] h-fit object-contain"
             />
             <div>
-              <p className="grid-headtext">My Passion for building WebApps</p>
+              <p className="grid-headtext">My Passion for WebApps</p>
               <p className="grid-subtext">
-                I love developing 3D WebApps with BaaS through code. Coding
-                isn't just my profession - it is my passion.
+                I love building 3D websites & applications powered by modern
+                frontend ecosystems. Coding isn't just a skill — it's my
+                passion.
               </p>
             </div>
           </div>
         </div>
+
+        {/* GRID 5 */}
         <div className="xl:col-span-1 xl:row-span-2">
           <div className="grid-container">
             <img

@@ -4,14 +4,14 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
 }
 
 body {
   background: #010103;
   font-family: "General Sans", sans-serif;
+  overflow-x: hidden; /* only for body, safe */
 }
 
 /* Chrome, Safari, Edge */

@@ -1,7 +1,8 @@
-import { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import Alert from "../components/Alert.jsx";
 import useAlert from "../hooks/useAlert.js";
+
 const Contact = () => {
   const FormRef = useRef();
   const { alert, showAlert, hideAlert } = useAlert();
@@ -35,7 +36,7 @@ const Contact = () => {
         import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
       );
 
-      // Second email to the user 
+      // Second email to the user
       await emailjs.send(
         import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_APP_EMAILJS_FOLLOWUP_TEMPLATE_ID,
