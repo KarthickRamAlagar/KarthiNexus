@@ -47,13 +47,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AppLayout from "./layout/AppLayout";
 import MainPage from "./pages/MainPage";
-import LandingPage from "./pages/LandingPage";
 import NotFound from "./components/NotFound";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LandingPage />,
+    element: <MainPage />,
   },
   {
     path: "/RenderGate",
