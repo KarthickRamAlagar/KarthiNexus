@@ -19,7 +19,7 @@ const Footer = () => {
           </a>
 
           <a
-            href="https://www.linkedin.com/in/karthickeyan-ramalagar"
+            href="https://www.linkedin.com/in/karthi21903/"
             target="_blank"
             rel="noopener noreferrer"
             className="social-icon hover:opacity-80 transition-opacity"
