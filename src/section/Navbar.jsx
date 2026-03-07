@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { navLinks } from "../constants/index.js";
-import ClerkAuthentication from "../components/ClerkAuthentication.jsx";
+// import ClerkAuthentication from "../components/ClerkAuthentication.jsx";
 const NavItems = ({ closeMenu }) => {
   return (
     <ul className="nav-ul">
@@ -52,9 +52,9 @@ const Navbar = () => {
           </button>
           <nav className="sm:flex hidden items-center">
             <NavItems />
-            <div className="ml-6 flex">
+            {/* <div className="ml-6 flex">
               <ClerkAuthentication />
-            </div>
+            </div> */}
           </nav>
         </div>
       </div>
@@ -65,9 +65,9 @@ const Navbar = () => {
       >
         <nav className="p-5 flex flex-col gap-2 justify-center items-center">
           <NavItems closeMenu={() => setIsOpen(false)} />
-          <div className="mt-4 mr-4">
+          {/* <div className="mt-4 mr-4">
             <ClerkAuthentication />
-          </div>
+          </div> */}
         </nav>
       </div>
     </header>

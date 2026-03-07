@@ -168,13 +168,13 @@ const Hero = () => {
           Hi, I am KarthiKeyan <span className="waving-hand">👋</span>
         </h4>
 
-        <p className="hero_tag text-gray_gradient">
+        <p className="hero_tag text-gray_gradient mt-4">
           {!typingFinished ? (
             <Typewriter
               words={[
-                "Frontend Architect",
-                "Animation-Rich UI Developer",
-                "React Enthusiast",
+                "React & TypeScript Developer",
+                "Full-Stack JavaScript Developer",
+                "Node.js & PostgreSQL Builder",
               ]}
               loop={2}
               typeSpeed={100}
@@ -219,10 +219,10 @@ const Hero = () => {
                   isSmall
                     ? [-7, -9, -14]
                     : isMobile
-                    ? [-9, -10, -11]
-                    : isTablet
-                    ? [-11, -7, -10]
-                    : [-13, -13, -10]
+                      ? [-9, -10, -11]
+                      : isTablet
+                        ? [-11, -7, -10]
+                        : [-13, -13, -10]
                 }
               />
 
@@ -239,7 +239,7 @@ const Hero = () => {
       </div>
 
       {/* BUTTON */}
-      <div className="absolute bottom-7 left-0 right-0 w-full z-10 c-space">
+      <div className="absolute bottom-7 left-0 right-0 w-full z-10 c-space flex justify-center items-center">
         <a href="#contact" className="w-fit">
           <Button
             name="Let's work together"
