@@ -183,7 +183,7 @@ const Hero = () => {
               onLoopDone={() => setTypingFinished(true)}
             />
           ) : (
-            "Frontend Architect"
+            "Full-Stack JavaScript Developer"
           )}
         </p>
       </div>
