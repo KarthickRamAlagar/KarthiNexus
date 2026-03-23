@@ -1,6 +1,6 @@
 import { useRef, forwardRef } from "react";
 import { motion, useInView } from "framer-motion";
-import StatsCard from "./StatsCard";
+import StatsCard from "./StatsCard.jsx";
 
 const StatsSection = forwardRef((props, ref) => {
   const localRef = useRef(null);

@@ -90,10 +90,10 @@ import Experience from "../section/Experience";
 import Contact from "../section/Contact";
 import Footer from "../section/Footer";
 import Cursor from "../components/Cursor";
-import StatsSection from "@/section/statsSection";
+import StatsSection from "../section/statsSection.jsx";
 
 const MainPage = () => {
-   const statsRef = useRef(null);
+  const statsRef = useRef(null);
   return (
     <main className="max-w-7xl mx-auto">
       <Cursor />
