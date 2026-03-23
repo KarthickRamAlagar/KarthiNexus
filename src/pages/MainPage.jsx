@@ -81,7 +81,7 @@
 
 // // export default MainPage;
 
-import React from "react";
+import React, { useRef } from "react";
 import Navbar from "../section/Navbar";
 import Hero from "../section/Hero";
 import About from "../section/About";
@@ -90,13 +90,16 @@ import Experience from "../section/Experience";
 import Contact from "../section/Contact";
 import Footer from "../section/Footer";
 import Cursor from "../components/Cursor";
+import StatsSection from "@/section/statsSection";
 
 const MainPage = () => {
+   const statsRef = useRef(null);
   return (
     <main className="max-w-7xl mx-auto">
       <Cursor />
       <Navbar />
       <Hero />
+      <StatsSection ref={statsRef} />
       <About />
       <Projects />
       <Experience />
